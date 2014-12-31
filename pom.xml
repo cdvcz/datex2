@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cz.cdv.datex2</groupId>
+	<artifactId>datex2-parent</artifactId>
+	<version>0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>DATEX II for Java (parent)</name>
+	<organization>
+		<name>Centrum dopravního výzkumu, v.v.i.</name>
+		<url>http://www.cdv.cz/</url>
+	</organization>
+
+	<modules>
+		<module>datex2-api</module>
+		<module>datex2-client</module>
+	</modules>
+
+</project>

@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<d2LogicalModel xmlns="http://datex2.eu/schema/2/2_0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" modelBaseVersion="2"
+	extensionName="Parking Publication" extensionVersion="v5.0">
+	<exchange>
+		<supplierIdentification>
+			<country>cz</country>
+			<nationalIdentifier>CDV</nationalIdentifier>
+		</supplierIdentification>
+	</exchange>
+	<payloadPublication xsi:type="GenericPublication"
+		lang="en">
+		<publicationTime>2014-05-02T11:43:27.0</publicationTime>
+		<publicationCreator>
+			<country>cz</country>
+			<nationalIdentifier>CDV</nationalIdentifier>
+		</publicationCreator>
+		<genericPublicationName>ParkingTablePublication</genericPublicationName>
+		<genericPublicationExtension>
+			<parkingTablePublication>
+				<parkingTable id="6DFFAAAA-51AA-48AA-84AA-7A947CA90AAA"
+					version="1">
+					<parkingTableName>
+						<values>
+							<value lang="cs">CDV</value>
+						</values>
+					</parkingTableName>
+					<parkingTableVersionTime>2014-05-02T11:43:27.0</parkingTableVersionTime>
+					<parking xsi:type="ParkingArea" id="8BA141D7-205A-462D-9503-C4F8537D71E3"
+						version="1">
+						<parkingName>
+							<values>
+								<value lang="cs">Parkoviště u Centra dopravního výzkumu, v.v.i.</value>
+							</values>
+						</parkingName>
+						<parkingAlias>
+							<values>
+								<value lang="cs">CDV parkoviště</value>
+							</values>
+						</parkingAlias>
+						<parkingDescritption>
+							<values>
+								<value lang="cs">Parkovací místa pro zaměstnance a návštěvy Centra dopravního výzkumu, v.v.i.</value>
+							</values>
+						</parkingDescritption>
+						<parkingRecordVersionTime>2014-05-02T11:43:27.0</parkingRecordVersionTime>
+						<parkingLocation xsi:type="Point">
+							<pointByCoordinates>
+								<pointCoordinates>
+									<latitude>49.197068</latitude>
+									<longitude>16.661174</longitude>
+								</pointCoordinates>
+							</pointByCoordinates>
+						</parkingLocation>
+						<parkingFacility xsi:type="UrbanParkingFacility"
+							id="519D9AAA-1EAA-4AAA-A9AA-6376C3869AAA" version="1">
+							<parkingName>
+								<values>
+									<value lang="cs">Parkoviště CDV</value>
+								</values>
+							</parkingName>
+							<parkingRecordVersionTime>2014-05-02T11:43:27.0</parkingRecordVersionTime>
+							<parkingNumberOfSpaces>36</parkingNumberOfSpaces>
+							<parkingPrincipalNumberOfSpaces>36</parkingPrincipalNumberOfSpaces>
+							<parkingOccupanyDetectionType>singleSpaceDetection</parkingOccupanyDetectionType>
+							<parkingLocation xsi:type="Point">
+								<pointByCoordinates>
+									<pointCoordinates>
+										<latitude>49.197068</latitude>
+										<longitude>16.661174</longitude>
+									</pointCoordinates>
+								</pointByCoordinates>
+							</parkingLocation>
+							<onlyAssignedParking>
+								<parkingUserType>employees</parkingUserType>
+								<parkingUserType>visitors</parkingUserType>
+							</onlyAssignedParking>
+							<prohibitedParking>
+								<parkingUserType>longTermParker</parkingUserType>
+								<parkingUserType>overnightParker</parkingUserType>
+							</prohibitedParking>
+							<tariffsAndPayment>
+								<freeOfCharge>true</freeOfCharge>
+							</tariffsAndPayment>
+							<groupedParkingSpaces groupIndex="0">
+								<parkingSpaceBasics xsi:type="GroupedParkingSpaces">
+									<parkingSpacePhysics>openAir</parkingSpacePhysics>
+									<parkingMode>perpendicularParking</parkingMode>
+									<parkingOccupanyDetectionType>singleSpaceDetection</parkingOccupanyDetectionType>
+									<parkingNumberOfSpaces>36</parkingNumberOfSpaces>
+									<minimumParkingSpaceDimensions>
+										<length>5.0</length>
+										<width>3.0</width>
+									</minimumParkingSpaceDimensions>
+									<parkingSpace parkingSpaceIndex="1">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="2">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="3">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="4">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="5">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="6">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="7">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="8">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="9">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="10">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="11">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="12">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="13">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="14">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="15">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="16">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="17">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="18">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="19">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="20">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="21">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="22">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="23">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="24">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="25">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="26">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="27">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="28">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="29">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="30">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="31">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="32">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="33">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="34">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="35">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+									<parkingSpace parkingSpaceIndex="36">
+										<parkingSpace>
+											<location xsi:type="Point">
+												<locationForDisplay>
+													<latitude>49.197068</latitude>
+													<longitude>16.661174</longitude>
+												</locationForDisplay>
+											</location>
+										</parkingSpace>
+									</parkingSpace>
+								</parkingSpaceBasics>
+							</groupedParkingSpaces>
+							<parkingVisualGuidanceSystem>true</parkingVisualGuidanceSystem>
+							<parkingAddressDetails>
+								<contactDetailsStreet>Líšeňská</contactDetailsStreet>
+								<contactDetailsStreetNumber>33a</contactDetailsStreetNumber>
+								<contactDetailsPostcode>636 00</contactDetailsPostcode>
+								<contactDetailsCity>
+									<values>
+										<value lang="cs">Brno</value>
+									</values>
+								</contactDetailsCity>
+								<country>cz</country>
+							</parkingAddressDetails>
+							<parkingUrbanFacilityType>onStreetParking</parkingUrbanFacilityType>
+							<parkingLayout>openSpace</parkingLayout>
+						</parkingFacility>
+					</parking>
+				</parkingTable>
+			</parkingTablePublication>
+		</genericPublicationExtension>
+	</payloadPublication>
+</d2LogicalModel>

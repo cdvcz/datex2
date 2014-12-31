@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://datex2.eu/wsdl/clientPull/2_0" xmlns:d2ns="http://datex2.eu/schema/2/2_0" name="clientPull" targetNamespace="http://datex2.eu/wsdl/clientPull/2_0">
+	<documentation>
+		Version 2.2 - 31 May 2013
+		This document describes the DATEX II Pull Service with WSDL 1.1
+		This wsdl document is the reference with which each DATEX II Web Service has to be built
+		Refer http://datex2.eu
+	</documentation>
+	<types>
+		<xs:schema targetNamespace="http://datex2.eu/wsdl/clientPull/2_0">
+			<xs:import namespace="http://datex2.eu/schema/2/2_0" schemaLocation="DATEXIISchema_2_2_2_Parking_1_0_a.xsd"/>
+			<!-- Here, the "namespace" MUST be the same as the used DATEX II schema targetNamespace -->
+			<!-- Here, the "schemaLocation" depends on each implementation and MUST be filled  by each developer, for instance  "file:///C:/DATEX2/DATEXIISchema_2_2_1.xsd"-->
+		</xs:schema>
+	</types>
+	<message name="inputMessage"/>
+	<message name="exchangeMessage">
+		<part name="body" element="d2ns:d2LogicalModel"/>
+	</message>
+	<portType name="clientPullInterface">
+		<operation name="getDatex2Data">
+			<input message="tns:inputMessage"/>
+			<!-- This version of the DATEX II Pull service doesn't use any input message but its declaration is here mandatory for a few Web Service frameworks-->
+			<output message="tns:exchangeMessage"/>
+		</operation>
+	</portType>
+	<binding name="clientPullSoapBinding" type="tns:clientPullInterface">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="getDatex2Data">
+			<soap:operation soapAction="http://datex2.eu/wsdl/clientPull/2_0/getDatex2Data" style="document"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body parts="body" use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="clientPullService">
+		<port name="clientPullSoapEndPoint" binding="tns:clientPullSoapBinding">
+			<soap:address location="http://localhost:8080/clientPullService/2_0"/>
+			<!-- Here, the "location" depends on each implementation and MUST be filled  by each developer, for instance "http://localhost:8080/clientPullService/2_0"-->
+		</port>
+	</service>
+	<!-- This version of the DATEX II Pull service doesn't use any input message but its declaration is here mandatory for a few Web Service frameworks-->
+</definitions>
