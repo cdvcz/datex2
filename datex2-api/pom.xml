@@ -129,8 +129,8 @@
 	</repositories>
 
 	<properties>
-		<cxf.version>3.0.2</cxf.version>
-		<spring.version>4.1.2.RELEASE</spring.version>
+		<cxf.version>3.0.3</cxf.version>
+		<spring.version>4.1.4.RELEASE</spring.version>
 	</properties>
 
 </project>
