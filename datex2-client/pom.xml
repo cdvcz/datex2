@@ -9,7 +9,7 @@
 	<artifactId>datex2-client</artifactId>
 
 	<name>DATEX II Java Client</name>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<dependencies>
 

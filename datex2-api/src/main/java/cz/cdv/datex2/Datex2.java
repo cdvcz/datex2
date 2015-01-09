@@ -16,7 +16,7 @@ import eu.datex2.wsdl.clientpull._2_0.ClientPullService;
 
 public class Datex2 {
 
-	public static Datex2Client createClient(URL supplierWsdlLocation,
+	public Datex2Client createClient(URL supplierWsdlLocation,
 			URL supplierSubscriptionWsdlLocation, String clientLocation) {
 
 		ClientPullService pullService = new ClientPullService(
@@ -42,7 +42,7 @@ public class Datex2 {
 		return client;
 	}
 
-	public static Datex2Supplier createSupplier(String supplierLocation,
+	public Datex2Supplier createSupplier(String supplierLocation,
 			String subscriptionLocation) {
 
 		if (subscriptionLocation != null) {
