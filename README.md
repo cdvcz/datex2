@@ -1,6 +1,8 @@
 DATEX II for Java
 =================
 
+[![Build Status](https://travis-ci.org/cdvcz/datex2.svg?branch=master)](https://travis-ci.org/cdvcz/datex2)
+
 DATEX II Open Java API and examples for easier use of DATEX II in Java
 environment.
 
