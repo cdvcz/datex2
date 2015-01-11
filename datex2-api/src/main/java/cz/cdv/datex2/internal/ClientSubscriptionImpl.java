@@ -22,10 +22,10 @@ public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 	private Subscriptions subscriptions = new Subscriptions();
 
 	@Override
-	public void subscribe(D2LogicalModel body) {
+	public String subscribe(D2LogicalModel body) {
 		if (body == null || body.getExchange() == null
 				|| body.getExchange().getSubscription() == null)
-			return;
+			return null;
 
 		Exchange exchange = body.getExchange();
 
@@ -38,7 +38,7 @@ public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 			if (subscriptionReference != null) {
 				subscriptions.delete(subscriptionReference);
 			}
-			return;
+			return null;
 		}
 
 		UpdateMethodEnum updateMethod = subscription.getUpdateMethod();
@@ -53,10 +53,12 @@ public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 			if (subscriptionReference == null) {
 				String reference = subscriptions.addPeriodic(startTime,
 						stopTime, periodSeconds, updateMethod, pushTargets);
-				// FIXME: return reference
+				return reference;
 			} else {
-				subscriptions.updatePeriodic(subscriptionReference, startTime,
-						stopTime, periodSeconds, updateMethod, pushTargets);
+				String reference = subscriptions.updatePeriodic(
+						subscriptionReference, startTime, stopTime,
+						periodSeconds, updateMethod, pushTargets);
+				return reference;
 			}
 		}
 
@@ -64,14 +66,16 @@ public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 			// push on occurrence
 			if (subscriptionReference == null) {
 				String reference = subscriptions.add(updateMethod, pushTargets);
+				return reference;
 			} else {
-				subscriptions.update(subscriptionReference, updateMethod,
-						pushTargets);
+				String reference = subscriptions.update(subscriptionReference,
+						updateMethod, pushTargets);
+				return reference;
 			}
 		}
 
 		else {
-			return;
+			return subscriptionReference;
 		}
 	}
 

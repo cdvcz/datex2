@@ -1,41 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://cdv.cz/datex2/wsdl/clientSubscribe" xmlns:d2ns="http://datex2.eu/schema/2/2_0" name="clientSubscribe" targetNamespace="http://cdv.cz/datex2/wsdl/clientSubscribe">
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://cdv.cz/datex2/wsdl/clientSubscribe"
+	xmlns:d2ns="http://datex2.eu/schema/2/2_0" name="clientSubscribe"
+	targetNamespace="http://cdv.cz/datex2/wsdl/clientSubscribe">
 	<documentation>
-		This document describes *CUSTOM* DATEX II Subscription Service with WSDL 1.1
+		This document describes *CUSTOM* DATEX II Subscription
+		Service with WSDL 1.1
 	</documentation>
 	<types>
 		<xs:schema targetNamespace="http://cdv.cz/datex2/wsdl/clientSubscribe">
-			<xs:import namespace="http://datex2.eu/schema/2/2_0" schemaLocation="DATEXIISchema_2_2_2_Parking_1_0_a.xsd"/>
-			<!-- Here, the "namespace" MUST be the same as the used DATEXII schema targetNamespace -->
-			<!-- Here, the "schemaLocation" depends on each implementation and MUST be filled  by each developer, for instance  "file:///C:/DATEX2/DATEXIISchema_2_2_1.xsd"-->
+			<xs:import namespace="http://datex2.eu/schema/2/2_0"
+				schemaLocation="DATEXIISchema_2_2_2_Parking_1_0_a.xsd" />
+			<!-- Here, the "namespace" MUST be the same as the used DATEXII schema 
+				targetNamespace -->
+			<!-- Here, the "schemaLocation" depends on each implementation and MUST 
+				be filled by each developer, for instance "file:///C:/DATEX2/DATEXIISchema_2_2_1.xsd" -->
+			<xs:element name="string" type="d2ns:String" />
 		</xs:schema>
 	</types>
 	<message name="subscribeMessage">
-		<part name="body" element="d2ns:d2LogicalModel"/>
+		<part name="body" element="d2ns:d2LogicalModel" />
 	</message>
-	<message name="outputMessage"/>
+	<message name="outputMessage">
+		<part name="reference" element="tns:string" />
+	</message>
 	<portType name="clientSubscribeInterface">
 		<operation name="subscribe">
-			<input message="tns:subscribeMessage"/>
-			<output message="tns:outputMessage"/>
+			<input message="tns:subscribeMessage" />
+			<output message="tns:outputMessage" />
 		</operation>
 	</portType>
 	<binding name="clientSubscribeSoapBinding" type="tns:clientSubscribeInterface">
-		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
 		<operation name="subscribe">
-			<soap:operation soapAction="http://cdv.cz/datex2/wsdl/clientSubscribe/subscribe" style="document"/>
+			<soap:operation soapAction="http://cdv.cz/datex2/wsdl/clientSubscribe/subscribe"
+				style="document" />
 			<input>
-				<soapbind:body parts="body" use="literal"/>
+				<soapbind:body parts="body" use="literal" />
 			</input>
 			<output>
-				<soapbind:body use="literal"/>
+				<soapbind:body parts="reference" use="literal" />
 			</output>
 		</operation>
 	</binding>
 	<service name="clientSubscribeService">
 		<port name="clientSubscribeSoapEndPoint" binding="tns:clientSubscribeSoapBinding">
-			<soap:address location="http://localhost:8080/clientSubscribeService"/>
-			<!-- Here, the "location" depends on each implementation and MUST be filled  by each developer, for instance "http://localhost:8080/supplierPushService/2_0"-->
+			<soap:address location="http://localhost:8080/clientSubscribeService" />
+			<!-- Here, the "location" depends on each implementation and MUST be filled 
+				by each developer, for instance "http://localhost:8080/supplierPushService/2_0" -->
 		</port>
 	</service>
 </definitions>
