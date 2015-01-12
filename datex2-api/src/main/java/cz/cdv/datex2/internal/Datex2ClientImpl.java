@@ -11,7 +11,6 @@ import eu.datex2.wsdl.clientpull._2_0.ClientPullInterface;
 public class Datex2ClientImpl implements Datex2Client {
 
 	private ClientPullInterface pullEndPoint;
-	private ClientSubscribeInterface subscriptionEndPoint;
 
 	private Register<Datex2Handler> handlers = new Register<>();
 
@@ -19,7 +18,6 @@ public class Datex2ClientImpl implements Datex2Client {
 			ClientSubscribeInterface subscriptionEndPoint) {
 
 		this.pullEndPoint = pullEndPoint;
-		this.subscriptionEndPoint = subscriptionEndPoint;
 	}
 
 	@Override

@@ -16,7 +16,7 @@ public class ClientPullImpl implements ClientPullInterface {
 
 	@Override
 	public D2LogicalModel getDatex2Data() {
-		return supplier.get();
+		return supplier.getSnapshot();
 	}
 
 }

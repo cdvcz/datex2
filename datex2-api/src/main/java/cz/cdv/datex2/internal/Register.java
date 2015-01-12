@@ -22,4 +22,14 @@ public class Register<T> {
 		return Collections.unmodifiableList(list);
 	}
 
+	public <S extends T> List<S> getAll(Class<S> clazz) {
+		List<S> filtered = new ArrayList<>();
+		for (T o : list) {
+			if (o != null && clazz.isAssignableFrom(o.getClass()))
+				filtered.add(clazz.cast(o));
+		}
+
+		return Collections.unmodifiableList(filtered);
+	}
+
 }

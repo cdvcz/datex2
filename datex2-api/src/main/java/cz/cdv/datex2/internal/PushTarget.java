@@ -1,8 +1,10 @@
 package cz.cdv.datex2.internal;
 
+import java.io.Serializable;
 import java.net.URL;
 
-public class PushTarget {
+@SuppressWarnings("serial")
+public class PushTarget implements Serializable {
 
 	private final URL url;
 	private final String username;
@@ -24,6 +26,16 @@ public class PushTarget {
 
 	public String getPassword() {
 		return password;
+	}
+
+	@Override
+	public String toString() {
+		if (username == null && password == null)
+			return url.toString();
+
+		return (username != null ? username : "")
+				+ (password != null ? ":" + password : "") + " @ "
+				+ url.toString();
 	}
 
 }

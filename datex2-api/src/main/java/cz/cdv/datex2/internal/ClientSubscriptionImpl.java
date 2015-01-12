@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.jws.WebService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import cz.cdv.datex2.wsdl.clientsubscribe.ClientSubscribeInterface;
 import eu.datex2.schema._2._2_0.D2LogicalModel;
 import eu.datex2.schema._2._2_0.Exchange;
@@ -19,7 +21,14 @@ import eu.datex2.schema._2._2_0.UpdateMethodEnum;
 @WebService(endpointInterface = "cz.cdv.datex2.wsdl.clientsubscribe.ClientSubscribeInterface", name = "clientSubscribeInterface", serviceName = "clientSubscribeService", portName = "clientSubscribeSoapEndPoint")
 public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 
-	private Subscriptions subscriptions = new Subscriptions();
+	@Autowired
+	private Subscriptions subscriptions;
+
+	private String supplierPath;
+
+	public ClientSubscriptionImpl(String supplierPath, String subscriptionPath) {
+		this.supplierPath = supplierPath;
+	}
 
 	@Override
 	public String subscribe(D2LogicalModel body) {
@@ -36,7 +45,7 @@ public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 
 		if (subscription.isDeleteSubscription()) {
 			if (subscriptionReference != null) {
-				subscriptions.delete(subscriptionReference);
+				subscriptions.delete(supplierPath, subscriptionReference);
 			}
 			return null;
 		}
@@ -51,11 +60,12 @@ public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 			Calendar stopTime = subscription.getSubscriptionStopTime();
 
 			if (subscriptionReference == null) {
-				String reference = subscriptions.addPeriodic(startTime,
-						stopTime, periodSeconds, updateMethod, pushTargets);
+				String reference = subscriptions.addPeriodic(supplierPath,
+						startTime, stopTime, periodSeconds, updateMethod,
+						pushTargets);
 				return reference;
 			} else {
-				String reference = subscriptions.updatePeriodic(
+				String reference = subscriptions.updatePeriodic(supplierPath,
 						subscriptionReference, startTime, stopTime,
 						periodSeconds, updateMethod, pushTargets);
 				return reference;
@@ -65,11 +75,12 @@ public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 		else if (mode == OperatingModeEnum.OPERATING_MODE_1) {
 			// push on occurrence
 			if (subscriptionReference == null) {
-				String reference = subscriptions.add(updateMethod, pushTargets);
+				String reference = subscriptions.add(supplierPath,
+						updateMethod, pushTargets);
 				return reference;
 			} else {
-				String reference = subscriptions.update(subscriptionReference,
-						updateMethod, pushTargets);
+				String reference = subscriptions.update(supplierPath,
+						subscriptionReference, updateMethod, pushTargets);
 				return reference;
 			}
 		}
@@ -90,11 +101,13 @@ public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 
 			pushTargets.add(getPushTarget(t));
 		}
+
 		return pushTargets;
 	}
 
 	private PushTarget getPushTarget(Target t) {
 		try {
+			// FIXME: obtain username, password
 			return new PushTarget(new URL(t.getAddress()), null, null);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

@@ -6,7 +6,7 @@ import eu.datex2.schema._2._2_0.Exchange;
 import eu.datex2.schema._2._2_0.InternationalIdentifier;
 import eu.datex2.schema._2._2_0.PayloadPublication;
 
-public abstract class PayloadPublicationProvider implements Datex2Provider {
+public abstract class PayloadPublicationProvider implements SnapshotProvider {
 
 	private final CountryEnum country;
 	private final String nationalIdentifier;
@@ -19,7 +19,7 @@ public abstract class PayloadPublicationProvider implements Datex2Provider {
 	}
 
 	@Override
-	public D2LogicalModel get() {
+	public D2LogicalModel getSnapshot() {
 		D2LogicalModel model = new D2LogicalModel();
 		model.setModelBaseVersion("2");
 

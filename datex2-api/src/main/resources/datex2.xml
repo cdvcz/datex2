@@ -12,4 +12,15 @@
 
 	<bean id="datex2" class="cz.cdv.datex2.Datex2" />
 
+	<!-- internal -->
+	<bean id="subscriptions" class="cz.cdv.datex2.internal.Subscriptions" />
+	<bean id="pusher" class="cz.cdv.datex2.internal.Pusher" />
+
+	<!-- spring -->
+	<bean id="taskScheduler"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+		<property name="waitForTasksToCompleteOnShutdown" value="true" />
+		<property name="poolSize" value="2" />
+	</bean>
+
 </beans>

@@ -26,6 +26,11 @@
 			<artifactId>spring-web</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mapdb</groupId>
+			<artifactId>mapdb</artifactId>
+			<version>${mapdb.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -131,6 +136,7 @@
 	<properties>
 		<cxf.version>3.0.3</cxf.version>
 		<spring.version>4.1.4.RELEASE</spring.version>
+		<mapdb.version>1.0.6</mapdb.version>
 	</properties>
 
 </project>
