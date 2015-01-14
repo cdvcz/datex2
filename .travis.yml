@@ -4,6 +4,10 @@ env:
   global:
     secure: EAD4D8NCr0O+5OnUstp7zRWvXKakXUenmMbJ8Uo2kItd0SFe8SAo/c5MjXkIax4cLZiy78BpBacG+hZGi6OfzQsLllS+B/wA3dD08nB9R1vA+02II6dZHWADv2h3Z+4WN+gWzBcZTXbqiAE7c7NLhSsBhWvXZHwV8575+D/hXu0=
 
+cache:
+  directories:
+    - $HOME/.m2
+
 after_success:
   - echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers></settings>" > ~/settings.xml
   - mvn deploy -B --settings ~/settings.xml
