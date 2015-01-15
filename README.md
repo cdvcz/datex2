@@ -44,6 +44,6 @@ Releases can be found in Maven Central Repository, yet no release has been made 
 There is no documentation yet but you can **use the force and read the source** and look at example supplier and client source code, see submodules `datex2-supplier` and `datex2-client`.
 
 Good starting points:
-- [SimpleClient.java](blob/master/datex2-client/src/main/java/cz/cdv/datex2/client/SimpleClient.java)
-- [Client.java](blob/master/datex2-client/src/main/java/cz/cdv/datex2/client/Client.java)
-- [Supplier.java](blob/master/datex2-supplier/src/main/java/cz/cdv/datex2/supplier/Supplier.java)
+- [SimpleClient.java](datex2-client/src/main/java/cz/cdv/datex2/client/SimpleClient.java)
+- [Client.java](datex2-client/src/main/java/cz/cdv/datex2/client/Client.java)
+- [Supplier.java](datex2-supplier/src/main/java/cz/cdv/datex2/supplier/Supplier.java)
