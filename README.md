@@ -19,9 +19,11 @@ Created by [Centrum dopravního výzkumu, v.v.i.](http://www.cdv./cz)
 (Transport Research Centre - Czech governmental research institute based in
 Brno, Czech Republic).
 
+Feel free to contact author: jan[dot]mynarik[at]cdv[dot]cz
+
 DATEX II Version
 ----------------
-Branch `master` currently uses DATEX 2.2 with Level B extension for parking, Parking Extensions v1.0a.
+Branch `master` currently uses DATEX 2.2 with Level B extension for parking, Parking Extension v1.0a.
 In future several branches can be made for several DATEX versions. Version numbering is yet to be defined but probably something like `0.1-2.2`.
 
 Usage
