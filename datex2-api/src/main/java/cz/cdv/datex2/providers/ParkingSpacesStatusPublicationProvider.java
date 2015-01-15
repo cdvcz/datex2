@@ -10,6 +10,7 @@ import eu.datex2.schema._2._2_0.ParkingSiteStatus;
 import eu.datex2.schema._2._2_0.ParkingSpaceStatus;
 import eu.datex2.schema._2._2_0.ParkingTable;
 import eu.datex2.schema._2._2_0.ParkingTableVersionedReference;
+import eu.datex2.schema._2._2_0.UpdateMethodEnum;
 
 public abstract class ParkingSpacesStatusPublicationProvider extends
 		ParkingStatusPublicationProvider {
@@ -60,10 +61,83 @@ public abstract class ParkingSpacesStatusPublicationProvider extends
 		clearCache();
 	}
 
+	@Override
+	protected void fillParkingStatusChanges(
+			List<ParkingTableVersionedReference> tableRefList,
+			List<ParkingRecordStatus> statusList,
+			UpdateMethodEnum updateMethod, String... changes) {
+
+		if (changes == null || changes.length == 0)
+			throw new IllegalArgumentException(
+					"At least one change must be specified");
+		if (updateMethod != UpdateMethodEnum.ALL_ELEMENT_UPDATE
+				&& updateMethod != UpdateMethodEnum.SINGLE_ELEMENT_UPDATE)
+			throw new IllegalArgumentException("Unsupported update method: "
+					+ updateMethod);
+
+		boolean all = updateMethod == UpdateMethodEnum.ALL_ELEMENT_UPDATE;
+		if (all)
+			cache();
+		cacheChanges(changes);
+
+		String tableId = getParkingTableId();
+		String tableVersion = getParkingTableVersion();
+
+		ParkingTableVersionedReference tableRef = new ParkingTableVersionedReference();
+		tableRefList.add(tableRef);
+		tableRef.setTargetClass(ParkingTable.class.getName());
+		tableRef.setId(tableId);
+		tableRef.setVersion(tableVersion);
+
+		for (String siteId : getChangedParkingSitesIds(changes)) {
+			ParkingSiteStatus siteStatus = new ParkingSiteStatus();
+			if (all)
+				fillParkingSiteStatus(siteStatus);
+			statusList.add(siteStatus);
+
+			ParkingRecordVersionedReference parkingRecordRef = new ParkingRecordVersionedReference();
+			parkingRecordRef.setId(getParkingRecordId(siteId));
+			parkingRecordRef.setVersion(getParkingRecordVersion(siteId));
+			siteStatus.setParkingRecordReference(parkingRecordRef);
+
+			List<ParkingRecordStatusParkingSpaceIndexParkingSpaceStatus> spacesStatus = siteStatus
+					.getParkingSpaceStatus();
+
+			int[] spaceIndices;
+			if (all)
+				spaceIndices = getParkingSpaceIndices(siteId);
+			else
+				spaceIndices = getChangedParkingSpaceIndices(siteId, changes);
+
+			for (int index : spaceIndices) {
+				boolean occupied;
+				if (all)
+					occupied = isParkingSpaceOccupied(siteId, index);
+				else
+					occupied = isChangedParkingSpaceOccupied(siteId, index,
+							changes);
+
+				ParkingRecordStatusParkingSpaceIndexParkingSpaceStatus spaceStatus = getParkingSpaceStatus(
+						siteId, index, occupied);
+				spacesStatus.add(spaceStatus);
+			}
+		}
+
+		clearCacheChanges(changes);
+		if (all)
+			clearCache();
+	}
+
 	protected void cache() {
 	}
 
 	protected void clearCache() {
+	}
+
+	protected void cacheChanges(String... changes) {
+	}
+
+	protected void clearCacheChanges(String... changes) {
 	}
 
 	protected abstract String getParkingTableId();
@@ -79,6 +153,14 @@ public abstract class ParkingSpacesStatusPublicationProvider extends
 	protected abstract int[] getParkingSpaceIndices(String siteId);
 
 	protected abstract boolean isParkingSpaceOccupied(String siteId, int index);
+
+	protected abstract String[] getChangedParkingSitesIds(String[] changes);
+
+	protected abstract int[] getChangedParkingSpaceIndices(String siteId,
+			String[] changes);
+
+	protected abstract boolean isChangedParkingSpaceOccupied(String siteId,
+			int index, String[] changes);
 
 	protected void fillParkingSiteStatus(ParkingSiteStatus siteStatus) {
 	}

@@ -20,7 +20,7 @@ public class SupplierPushImpl implements SupplierPushInterface {
 		if (holder == null)
 			return;
 
-		client.set(holder.value);
+		client.push(holder.value);
 	}
 
 }

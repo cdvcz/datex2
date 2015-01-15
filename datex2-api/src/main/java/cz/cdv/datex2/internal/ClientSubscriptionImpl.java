@@ -1,7 +1,5 @@
 package cz.cdv.datex2.internal;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -53,11 +51,14 @@ public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 		UpdateMethodEnum updateMethod = subscription.getUpdateMethod();
 		List<PushTarget> pushTargets = getPushTargets(subscription.getTarget());
 
-		if (mode == OperatingModeEnum.OPERATING_MODE_2) {
+		Float periodSeconds = subscription.getDeliveryInterval();
+		Calendar startTime = subscription.getSubscriptionStartTime();
+		Calendar stopTime = subscription.getSubscriptionStopTime();
+
+		if (mode == OperatingModeEnum.OPERATING_MODE_2 && periodSeconds != null) {
 			// push periodic
-			Float periodSeconds = subscription.getDeliveryInterval();
-			Calendar startTime = subscription.getSubscriptionStartTime();
-			Calendar stopTime = subscription.getSubscriptionStopTime();
+			if (periodSeconds <= 0)
+				return null;
 
 			if (subscriptionReference == null) {
 				String reference = subscriptions.addPeriodic(supplierPath,
@@ -76,11 +77,12 @@ public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 			// push on occurrence
 			if (subscriptionReference == null) {
 				String reference = subscriptions.add(supplierPath,
-						updateMethod, pushTargets);
+						updateMethod, startTime, stopTime, pushTargets);
 				return reference;
 			} else {
 				String reference = subscriptions.update(supplierPath,
-						subscriptionReference, updateMethod, pushTargets);
+						subscriptionReference, updateMethod, startTime,
+						stopTime, pushTargets);
 				return reference;
 			}
 		}
@@ -99,20 +101,10 @@ public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 			if (t == null)
 				continue;
 
-			pushTargets.add(getPushTarget(t));
+			pushTargets.add(PushTarget.create(t));
 		}
 
 		return pushTargets;
-	}
-
-	private PushTarget getPushTarget(Target t) {
-		try {
-			// FIXME: obtain username, password
-			return new PushTarget(new URL(t.getAddress()), null, null);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 }

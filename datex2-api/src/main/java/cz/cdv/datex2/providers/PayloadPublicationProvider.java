@@ -20,6 +20,12 @@ public abstract class PayloadPublicationProvider implements SnapshotProvider {
 
 	@Override
 	public D2LogicalModel getSnapshot() {
+		D2LogicalModel model = createModel();
+		model.setPayloadPublication(getPayloadPublication());
+		return model;
+	}
+
+	protected D2LogicalModel createModel() {
 		D2LogicalModel model = new D2LogicalModel();
 		model.setModelBaseVersion("2");
 
@@ -29,9 +35,6 @@ public abstract class PayloadPublicationProvider implements SnapshotProvider {
 		intId.setNationalIdentifier(nationalIdentifier);
 		exchange.setSupplierIdentification(intId);
 		model.setExchange(exchange);
-
-		model.setPayloadPublication(getPayloadPublication());
-
 		return model;
 	}
 

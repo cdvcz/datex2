@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.Trigger;
 
+import cz.cdv.datex2.Datex2Subscription;
 import cz.cdv.datex2.Datex2Supplier;
 import eu.datex2.schema._2._2_0.D2LogicalModel;
 import eu.datex2.schema._2._2_0.UpdateMethodEnum;
@@ -109,12 +110,14 @@ public class Subscriptions implements InitializingBean, DisposableBean {
 	}
 
 	public String add(String supplier, UpdateMethodEnum updateMethod,
-			List<PushTarget> pushTargets) {
+			Calendar startTime, Calendar stopTime, List<PushTarget> pushTargets) {
 
 		try {
 			String reference = createReference();
-			entries.put(reference,
-					createEntry(supplier, updateMethod, pushTargets));
+			entries.put(
+					reference,
+					createEntry(supplier, updateMethod, pushTargets, startTime,
+							stopTime, null));
 			return reference;
 		} finally {
 			db.commit();
@@ -122,11 +125,14 @@ public class Subscriptions implements InitializingBean, DisposableBean {
 	}
 
 	public String update(String supplier, String reference,
-			UpdateMethodEnum updateMethod, List<PushTarget> pushTargets) {
+			UpdateMethodEnum updateMethod, Calendar startTime,
+			Calendar stopTime, List<PushTarget> pushTargets) {
 
 		try {
-			entries.put(reference,
-					createEntry(supplier, updateMethod, pushTargets));
+			entries.put(
+					reference,
+					createEntry(supplier, updateMethod, pushTargets, startTime,
+							stopTime, null));
 			return reference;
 		} finally {
 			db.commit();
@@ -211,13 +217,6 @@ public class Subscriptions implements InitializingBean, DisposableBean {
 	}
 
 	private Entry createEntry(String supplier, UpdateMethodEnum updateMethod,
-			List<PushTarget> pushTargets) {
-
-		return createEntry(supplier, updateMethod, pushTargets, null, null,
-				null);
-	}
-
-	private Entry createEntry(String supplier, UpdateMethodEnum updateMethod,
 			List<PushTarget> pushTargets, Calendar startTime,
 			Calendar stopTime, Float periodSeconds) {
 
@@ -266,21 +265,51 @@ public class Subscriptions implements InitializingBean, DisposableBean {
 		if (entry == null)
 			return;
 
+		boolean applicable = true;
+		Calendar now = Calendar.getInstance();
+		if ((entry.getStartTime() != null && entry.getStartTime().after(now))
+				|| (entry.getStopTime() != null && entry.getStopTime().before(
+						now)))
+			applicable = false;
+
 		String supplierId = entry.getSupplier();
 		Datex2Supplier supplier = suppliers.get(supplierId);
+		UpdateMethodEnum updateMethod = entry.getUpdateMethod();
 
 		for (PushTarget target : entry.getPushTargets()) {
-			String[] changes = getNewChanges(reference, target);
-			if (changes == null || changes.length == 0)
-				continue;
+			D2LogicalModel model = null;
+			String[] changes;
 
-			D2LogicalModel model = supplier.getChanges(entry.getUpdateMethod(),
-					changes);
-			if (model == null)
-				continue;
+			if (updateMethod == UpdateMethodEnum.SNAPSHOT) {
+				model = supplier.getSnapshot();
+				changes = null;
+			}
+
+			else {
+				changes = getNewChanges(reference, target);
+				if (changes == null || changes.length == 0)
+					continue;
+
+				if (applicable)
+					model = supplier.getChanges(updateMethod, changes);
+			}
+
+			if (applicable) {
+				if (model == null)
+					continue;
+
+				Datex2Subscription d2s = Datex2Subscription.newBuilder()
+						.reference(reference).start(entry.getStartTime())
+						.stop(entry.getStopTime())
+						.periodic(entry.getPeriodSeconds())
+						.update(entry.getUpdateMethod())
+						.target(entry.getPushTargets()).build();
+				d2s.updateModel(model);
+			}
 
 			try {
-				supplierPush(model, target);
+				if (applicable)
+					supplierPush(model, target);
 				setPushedChanges(reference, target, changes);
 			} catch (Exception e) {
 				log.log(Level.SEVERE, "Can't push to " + target, e);
