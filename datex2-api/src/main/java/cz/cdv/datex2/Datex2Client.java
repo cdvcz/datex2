@@ -11,7 +11,7 @@ public interface Datex2Client {
 
 	void pull();
 
-	void subscribe(Datex2Subscription subscription);
+	String subscribe(Datex2Subscription subscription);
 
 	void addHandler(Datex2Handler handler);
 

@@ -2,6 +2,7 @@ package cz.cdv.datex2.internal;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +11,6 @@ import java.util.NavigableSet;
 import java.util.TreeSet;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,7 +64,7 @@ public class Subscriptions implements InitializingBean, DisposableBean {
 				Entry entry = entries.get(reference);
 
 				// run push only for on-occurrence subscriptions
-				if (entry.getPeriodSeconds() != null)
+				if (entry.getPeriodSeconds() == null)
 					execute(reference);
 			}
 		} finally {
@@ -78,11 +78,11 @@ public class Subscriptions implements InitializingBean, DisposableBean {
 
 		try {
 			String reference = createReference();
-			entries.put(
-					reference,
-					createEntry(supplier, updateMethod, pushTargets, startTime,
-							stopTime, periodSeconds));
+			Entry entry = createEntry(supplier, updateMethod, pushTargets,
+					startTime, stopTime, periodSeconds);
+			entries.put(reference, entry);
 
+			createLastChange(reference, entry);
 			schedule(reference, startTime, stopTime, periodSeconds);
 
 			return reference;
@@ -96,10 +96,9 @@ public class Subscriptions implements InitializingBean, DisposableBean {
 			UpdateMethodEnum updateMethod, List<PushTarget> pushTargets) {
 
 		try {
-			entries.put(
-					reference,
-					createEntry(supplier, updateMethod, pushTargets, startTime,
-							stopTime, periodSeconds));
+			Entry entry = createEntry(supplier, updateMethod, pushTargets,
+					startTime, stopTime, periodSeconds);
+			entries.put(reference, entry);
 
 			schedule(reference, startTime, stopTime, periodSeconds);
 
@@ -114,10 +113,10 @@ public class Subscriptions implements InitializingBean, DisposableBean {
 
 		try {
 			String reference = createReference();
-			entries.put(
-					reference,
-					createEntry(supplier, updateMethod, pushTargets, startTime,
-							stopTime, null));
+			Entry entry = createEntry(supplier, updateMethod, pushTargets,
+					startTime, stopTime, null);
+			entries.put(reference, entry);
+			createLastChange(reference, entry);
 			return reference;
 		} finally {
 			db.commit();
@@ -129,10 +128,9 @@ public class Subscriptions implements InitializingBean, DisposableBean {
 			Calendar stopTime, List<PushTarget> pushTargets) {
 
 		try {
-			entries.put(
-					reference,
-					createEntry(supplier, updateMethod, pushTargets, startTime,
-							stopTime, null));
+			Entry entry = createEntry(supplier, updateMethod, pushTargets,
+					startTime, stopTime, null);
+			entries.put(reference, entry);
 			return reference;
 		} finally {
 			db.commit();
@@ -326,8 +324,11 @@ public class Subscriptions implements InitializingBean, DisposableBean {
 			return;
 
 		List<String> supplierHistory = changesHistory.get(supplier);
-		if (supplierHistory == null)
-			supplierHistory = new CopyOnWriteArrayList<>();
+		if (supplierHistory == null) {
+			supplierHistory = Collections
+					.synchronizedList(new ArrayList<String>());
+			changesHistory.put(supplier, supplierHistory);
+		}
 		for (String change : changes) {
 			if (!supplier.contains(change))
 				supplierHistory.add(change);
@@ -343,10 +344,12 @@ public class Subscriptions implements InitializingBean, DisposableBean {
 		if (supplierHistory == null || supplierHistory.size() == 0)
 			return null;
 
-		String change = lastChanges.get(getLastChangeKey(reference, target));
+		String change = getLastChange(reference, target);
 		int lastIndex = supplierHistory.lastIndexOf(change);
+		if (lastIndex < 0 || lastIndex >= supplierHistory.size() - 1)
+			return new String[0];
 
-		List<String> newChanges = supplierHistory.subList(lastIndex,
+		List<String> newChanges = supplierHistory.subList(lastIndex + 1,
 				supplierHistory.size());
 		return newChanges.toArray(new String[0]);
 	}
@@ -365,8 +368,34 @@ public class Subscriptions implements InitializingBean, DisposableBean {
 		if (supplierHistory == null || supplierHistory.size() == 0)
 			throw new IllegalStateException("No changes history");
 
-		lastChanges.put(getLastChangeKey(reference, target),
-				changes[changes.length - 1]);
+		String last = changes[changes.length - 1];
+		setLastChange(reference, target, last);
+	}
+
+	private String getLastChange(String reference, PushTarget target) {
+		return lastChanges.get(getLastChangeKey(reference, target));
+	}
+
+	private String setLastChange(String reference, PushTarget target,
+			String last) {
+
+		return lastChanges.put(getLastChangeKey(reference, target), last);
+	}
+
+	private void createLastChange(String reference, Entry entry) {
+		if (entry == null || reference == null
+				|| entry.getPushTargets() == null)
+			return;
+
+		List<String> supplierHistory = changesHistory.get(entry.getSupplier());
+		if (supplierHistory == null || supplierHistory.size() == 0)
+			return;
+
+		String last = supplierHistory.get(supplierHistory.size() - 1);
+		for (PushTarget t : entry.getPushTargets()) {
+			if (getLastChange(reference, t) == null)
+				setLastChange(reference, t, last);
+		}
 	}
 
 	private String getLastChangeKey(String reference, PushTarget target) {

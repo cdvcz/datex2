@@ -6,9 +6,9 @@
 		<artifactId>datex2-parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>datex2-client</artifactId>
+	<artifactId>datex2-supplier</artifactId>
 
-	<name>DATEX II for Java: Example Client</name>
+	<name>DATEX II for Java: Example Supplier</name>
 	<packaging>war</packaging>
 
 	<dependencies>
@@ -40,9 +40,6 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>9.2.6.v20141205</version>
 				<configuration>
-					<httpConnector>
-						<port>9090</port>
-					</httpConnector>
 					<!-- Log to the console. -->
 					<requestLog implementation="org.eclipse.jetty.server.NCSARequestLog">
 						<!-- This doesn't do anything for Jetty, but is a workaround for a 

@@ -154,13 +154,13 @@ public abstract class ParkingSpacesStatusPublicationProvider extends
 
 	protected abstract boolean isParkingSpaceOccupied(String siteId, int index);
 
-	protected abstract String[] getChangedParkingSitesIds(String[] changes);
+	protected abstract String[] getChangedParkingSitesIds(String... changes);
 
 	protected abstract int[] getChangedParkingSpaceIndices(String siteId,
-			String[] changes);
+			String... changes);
 
 	protected abstract boolean isChangedParkingSpaceOccupied(String siteId,
-			int index, String[] changes);
+			int index, String... changes);
 
 	protected void fillParkingSiteStatus(ParkingSiteStatus siteStatus) {
 	}

@@ -25,6 +25,10 @@ public class Datex2 implements ApplicationContextAware {
 
 	private String subscribePrefix = "subscribe";
 
+	public Datex2Client createClient(URL supplierWsdlLocation) {
+		return createClient(supplierWsdlLocation, null, null);
+	}
+
 	public Datex2Client createClient(URL supplierWsdlLocation,
 			URL supplierSubscriptionWsdlLocation, String clientPath) {
 
@@ -125,6 +129,9 @@ public class Datex2 implements ApplicationContextAware {
 	}
 
 	private void autowire(Object bean) {
+		if (applicationContext == null)
+			return;
+
 		applicationContext.getAutowireCapableBeanFactory().autowireBean(bean);
 		if (bean instanceof InitializingBean) {
 			try {

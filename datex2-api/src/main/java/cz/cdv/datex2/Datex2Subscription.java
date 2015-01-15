@@ -94,6 +94,10 @@ public class Datex2Subscription {
 		}
 	}
 
+	public void target(URL url, String username, String password) {
+		this.targets.add(new PushTarget(url, username, password).toTarget());
+	}
+
 	public static class Builder {
 
 		private String reference = null;
@@ -117,7 +121,7 @@ public class Datex2Subscription {
 			return this;
 		}
 
-		public Builder periodic(float seconds) {
+		public Builder periodic(Float seconds) {
 			this.seconds = seconds;
 			return this;
 		}
@@ -128,8 +132,12 @@ public class Datex2Subscription {
 		}
 
 		public Builder start(Date start) {
-			this.start = Calendar.getInstance();
-			this.start.setTime(start);
+			if (start == null) {
+				this.start = null;
+			} else {
+				this.start = Calendar.getInstance();
+				this.start.setTime(start);
+			}
 			return this;
 		}
 
@@ -139,8 +147,12 @@ public class Datex2Subscription {
 		}
 
 		public Builder stop(Date stop) {
-			this.stop = Calendar.getInstance();
-			this.stop.setTime(stop);
+			if (stop == null) {
+				this.stop = null;
+			} else {
+				this.stop = Calendar.getInstance();
+				this.stop.setTime(stop);
+			}
 			return this;
 		}
 
@@ -186,7 +198,8 @@ public class Datex2Subscription {
 
 		public Builder target(List<PushTarget> pushTargets) {
 			if (pushTargets == null)
-				targets.clear();
+				return this;
+
 			for (PushTarget t : pushTargets)
 				target(t);
 			return this;

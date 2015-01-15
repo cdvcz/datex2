@@ -29,14 +29,14 @@ public class Datex2ClientImpl implements Datex2Client {
 	}
 
 	@Override
-	public void subscribe(Datex2Subscription subscription) {
+	public String subscribe(Datex2Subscription subscription) {
 		if (subscriptionEndPoint == null)
 			throw new UnsupportedOperationException(
 					"Client is not initialized with subscription endpoint URL");
 		if (subscription == null)
 			throw new IllegalArgumentException("Subscription must be specified");
 
-		subscriptionEndPoint.subscribe(subscription.getModel());
+		return subscriptionEndPoint.subscribe(subscription.getModel());
 	}
 
 	@Override

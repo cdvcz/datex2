@@ -34,6 +34,6 @@
 		</cxf:inFaultInterceptors>
 	</cxf:bus -->
 
-	<bean id="client" class="cz.cdv.datex2.client.Client" />
+	<bean id="supplier" class="cz.cdv.datex2.supplier.Supplier" />
 
 </beans>

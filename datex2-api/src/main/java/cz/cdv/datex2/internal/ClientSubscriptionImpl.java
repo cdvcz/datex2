@@ -16,7 +16,7 @@ import eu.datex2.schema._2._2_0.Subscription;
 import eu.datex2.schema._2._2_0.Target;
 import eu.datex2.schema._2._2_0.UpdateMethodEnum;
 
-@WebService(endpointInterface = "cz.cdv.datex2.wsdl.clientsubscribe.ClientSubscribeInterface", name = "clientSubscribeInterface", serviceName = "clientSubscribeService", portName = "clientSubscribeSoapEndPoint")
+@WebService(endpointInterface = "cz.cdv.datex2.wsdl.clientsubscribe.ClientSubscribeInterface", targetNamespace = "http://cdv.cz/datex2/wsdl/clientSubscribe", name = "clientSubscribeInterface", serviceName = "clientSubscribeService", portName = "clientSubscribeSoapEndPoint")
 public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 
 	@Autowired
@@ -38,10 +38,12 @@ public class ClientSubscriptionImpl implements ClientSubscribeInterface {
 
 		String subscriptionReference = exchange.getSubscriptionReference();
 		Subscription subscription = exchange.getSubscription();
+		if (subscription == null)
+			return null;
 
 		OperatingModeEnum mode = subscription.getOperatingMode();
 
-		if (subscription.isDeleteSubscription()) {
+		if (Boolean.TRUE.equals(subscription.isDeleteSubscription())) {
 			if (subscriptionReference != null) {
 				subscriptions.delete(supplierPath, subscriptionReference);
 			}

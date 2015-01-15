@@ -24,6 +24,7 @@
 	<modules>
 		<module>datex2-api</module>
 		<module>datex2-client</module>
+		<module>datex2-supplier</module>
 	</modules>
 
 	<scm>
