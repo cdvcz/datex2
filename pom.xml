@@ -11,16 +11,19 @@
 	</prerequisites>
 
 	<name>DATEX II for Java (parent)</name>
+	<description>DATEX II Open Java API and examples for easier use of DATEX II in Java environment.</description>
 	<organization>
 		<name>Centrum dopravního výzkumu, v.v.i.</name>
 		<url>http://www.cdv.cz/</url>
 	</organization>
-	<contributors>
-		<contributor>
+	<developers>
+		<developer>
 			<name>Jan Mynařík</name>
-			<organizationUrl>http://www.cdv.cz/</organizationUrl>
-		</contributor>
-	</contributors>
+			<roles>
+				<role>author</role>
+			</roles>
+		</developer>
+	</developers>
 
 	<url>https://github.com/cdvcz/datex2</url>
 	<inceptionYear>2014</inceptionYear>
@@ -51,18 +54,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.5</version>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>ossrh</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-				</configuration>
-			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
@@ -101,6 +92,19 @@
 								</goals>
 							</execution>
 						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.5</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+							<skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>

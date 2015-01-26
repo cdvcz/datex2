@@ -9,6 +9,7 @@
 	<artifactId>datex2-client</artifactId>
 
 	<name>DATEX II for Java: Example Client</name>
+	<description>Example DATEX II supplier implemented using DATEX II Open Java API</description>
 	<packaging>war</packaging>
 
 	<dependencies>
