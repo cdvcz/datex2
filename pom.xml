@@ -6,12 +6,21 @@
 	<artifactId>datex2-parent</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<prerequisites>
+		<maven>3.0.4</maven>
+	</prerequisites>
 
 	<name>DATEX II for Java (parent)</name>
 	<organization>
 		<name>Centrum dopravního výzkumu, v.v.i.</name>
 		<url>http://www.cdv.cz/</url>
 	</organization>
+	<contributors>
+		<contributor>
+			<name>Jan Mynařík</name>
+			<organizationUrl>http://www.cdv.cz/</organizationUrl>
+		</contributor>
+	</contributors>
 
 	<url>https://github.com/cdvcz/datex2</url>
 	<inceptionYear>2014</inceptionYear>
