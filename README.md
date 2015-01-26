@@ -24,16 +24,18 @@ Feel free to contact author: jan[dot]mynarik[at]cdv[dot]cz
 DATEX II Version
 ----------------
 Branch `master` currently uses DATEX 2.2 with Level B extension for parking, Parking Extension v1.0a.
-In future several branches can be made for several DATEX versions. Version numbering is yet to be defined but probably something like `0.1-2.2`.
+In future several branches can be made for several DATEX versions.
 
 Usage
 -----
 
-Releases can be found in Maven Central Repository, yet no release has been made to this day. Snapshots are in OSSRH repository:
+Releases can be found in Maven Central Repository.
+
+Snapshots are in OSSRH repository:
 ```xml
 <repository>
   <id>ossrh</id>
-  <url>https://oss.sonatype.org/content/repositories/snaphots</url>
+  <url>https://oss.sonatype.org/content/repositories/snapshots</url>
   <releases>
     <enabled>false</enabled>
   </releases>
